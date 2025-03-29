@@ -1,0 +1,24 @@
+{
+  "name": "common",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist/"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./priceFormat": "./dist/priceFormat.js",
+    "./localStorage": "./dist/localStorage.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "typescript": "~5.7.2"
+  }
+}
