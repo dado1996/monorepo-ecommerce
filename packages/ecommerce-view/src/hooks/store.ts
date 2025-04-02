@@ -62,11 +62,12 @@ const useStore = create<StoreState>((set) => ({
   getCartItemCount: (state: StoreState) => {
     return state.cart.reduce((count, item) => count + item.quantity, 0);
   },
-  role: null,
-  setRole: (role: "client" | "admin") => {
-    set({
-      role,
-    });
+  user: null,
+  login: (username: "client" | "admin") => {
+    set({ user: username });
+  },
+  logout: () => {
+    set({ user: null });
   },
 }));
 

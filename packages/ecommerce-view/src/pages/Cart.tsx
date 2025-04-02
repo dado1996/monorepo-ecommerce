@@ -1,43 +1,36 @@
-import ListGroup from "react-bootstrap/ListGroup";
 import useStore from "../hooks/store";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { priceFormat } from "common/priceFormat";
+import { Link } from "react-router";
+import CartList from "../components/cart/CartList";
 
 export function Cart() {
-  const cartItems = useStore((state) => state.cart);
   const total = useStore((state) => state.getCartTotal(state));
-
+  const clearCart = useStore((state) => state.clearCart);
+  const cartEmpty = total === 0;
   return (
     <>
       <h1>Cart</h1>
       <Container>
         <Row>
           <Col>
-            <ListGroup>
-              {cartItems.length > 0 ? (
-                <>
-                  {cartItems.map((item) => {
-                    const price = (item.price + item.price * item.tax) * item.quantity;
-                    return (
-                      <ListGroup.Item key={item.id}>
-                        <p>{item.name}</p>
-                        <p>Amount: {item.quantity}</p>
-                        <span>Price: ${priceFormat(price)}</span>
-                      </ListGroup.Item>
-                    );
-                  })}
-                  <ListGroup.Item>
-                    <b>Total: ${priceFormat(total)}</b>
-                  </ListGroup.Item>
-                </>
-              ) : (
-                <p>No items in the cart</p>
-              )}
-            </ListGroup>
+            <CartList total={total} />
           </Col>
-          <Col></Col>
+        </Row>
+        <Row className="mt-3">
+          <Col>
+            <Link hidden={cartEmpty} to="/bill" className="btn btn-primary">
+              Generate bill
+            </Link>
+          </Col>
+        </Row>
+        <Row className="mt-3">
+          <Col hidden={cartEmpty}>
+            <a href="#" onClick={clearCart}>
+              Clear Cart
+            </a>
+          </Col>
         </Row>
       </Container>
     </>

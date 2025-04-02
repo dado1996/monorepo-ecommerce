@@ -1,15 +1,13 @@
-import { Link, Outlet, redirect } from "react-router";
+import { Link, Outlet } from "react-router";
 import Stack from "react-bootstrap/Stack";
 import Badge from "react-bootstrap/Badge";
 import useStore from "../hooks/store";
+import Dropdown from "react-bootstrap/Dropdown";
 
 export function Layout() {
   const totalItems = useStore((state) => state.getCartItemCount(state));
-  const user = useStore((state) => state.role);
-  console.log(user);
-  if (!user) {
-    redirect("/login");
-  }
+  const user = useStore((state) => state.user);
+  const logout = useStore((state) => state.logout);
   return (
     <div>
       <nav className="bg-info">
@@ -21,9 +19,15 @@ export function Layout() {
             Cart
             <Badge pill>{totalItems}</Badge>
           </Link>
-          <Link to="/" className="p-2">
-            Profile
-          </Link>
+          <Dropdown>
+            <Dropdown.Toggle variant="secondary">{user}</Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item>My purchases</Dropdown.Item>
+              <Dropdown.Item href="#" onClick={logout}>
+                Logout
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Stack>
       </nav>
       <Outlet />

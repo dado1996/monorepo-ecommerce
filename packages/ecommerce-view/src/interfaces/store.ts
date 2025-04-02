@@ -1,8 +1,9 @@
 import { CartItem, Product } from "./product";
 
 export interface StoreState {
-  role: "client" | "admin" | null;
-  setRole: (role: "client" | "admin") => void;
+  user: "client" | "admin" | null;
+  login: (username: "client" | "admin") => void;
+  logout: () => void;
   cart: CartItem[];
   products: Product[];
   addToCart: (product: Product) => void;

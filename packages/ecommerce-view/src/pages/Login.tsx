@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Form from "react-bootstrap/Form";
 import useStore from "../hooks/store";
-import { redirect } from "react-router";
+import { useNavigate } from "react-router";
 import Toast from "react-bootstrap/Toast";
 
 type LoginForm = {
@@ -10,16 +10,18 @@ type LoginForm = {
 };
 
 export function Login() {
+  const navigate = useNavigate();
   const [loginData, setLoginData] = useState<LoginForm>({ username: "", password: "" });
   const [error, setError] = useState("");
-  const setRole = useStore((state) => state.setRole);
+  const login = useStore((state) => state.login);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLoginData({
       ...loginData,
       [event.target.name]: event.target.value,
     });
   };
-  const handleLogin = () => {
+  const handleLogin = (event: React.SyntheticEvent) => {
+    event.preventDefault();
     if (!loginData.username || !loginData.password) {
       setError("Invalid username or password");
       return;
@@ -28,13 +30,17 @@ export function Login() {
       setError("Invalid username or password");
       return;
     }
-    setRole(loginData.username);
-    redirect("/");
+    login(loginData.username);
+    if (loginData.username === "admin") {
+      navigate("/admin");
+    } else {
+      navigate("/");
+    }
   };
   return (
     <>
       <h1>Login</h1>
-      <Form onSubmit={handleLogin}>
+      <Form method="POST" onSubmit={handleLogin}>
         <Form.Group>
           <Form.Label>Username</Form.Label>
           <Form.Control onChange={handleChange} name="username" type="text" placeholder="user" />
