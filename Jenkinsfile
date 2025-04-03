@@ -3,12 +3,13 @@ pipeline {
 
     environment {
         AWS_REGION = 'us-east-1'
+        S3_BUCKET = 'monorepo-ecommerce'
     }
 
     stages {
         stage('Verify code') {
             steps {
-                git branch: 'main', url: 'https://github.com/dado1996/monorepo-ecommerce'
+                git branch: 'main', url: 'https://github.com/dado1996/monorepo-ecommerce.git'
             }
         }
 
@@ -32,7 +33,9 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                withAWS(credentials: 'aws-credentials-id', region: "${AWS_REGION}")
+                withAWS(credentials: 'aws-credentials-id', region: "${AWS_REGION}") {
+                    sh "aws s3 sync ./dist s3://${S3_BUCKET} --delete"
+                }
             }
         }
     }
