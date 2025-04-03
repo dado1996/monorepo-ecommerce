@@ -7,7 +7,7 @@ import { Admin } from "./pages/Admin";
 import { Login } from "./pages/Login";
 import { NotFound } from "./pages/NotFound";
 import { Forbidden } from "./pages/Forbidden";
-import PrivateRouter from "./hooks/protectedRoute";
+import PrivateRouter from "./hooks/ProtectedRoute";
 
 export const Router = () => (
   <Routes>

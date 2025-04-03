@@ -4,7 +4,7 @@ import { Admin } from "../../../pages/Admin";
 import "@testing-library/jest-dom/vitest";
 
 describe("The not found page", () => {
-  it("should display the not found text", () => {
+  it("should display the admin text", () => {
     render(<Admin />);
     expect(screen.getByText("Admin")).toBeInTheDocument();
   });

@@ -6,6 +6,7 @@ import { StoreState } from "../interfaces/store";
 const useStore = create<StoreState>((set) => ({
   cart: [],
   products: products,
+  categories: [...new Set(products.map((item) => item.category))],
   addToCart: (product: Product) => {
     set((state) => {
       const exists = state.cart.find((item) => item.id === product.id);

@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest --dom"
+    "test": "vitest --run --dom"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",

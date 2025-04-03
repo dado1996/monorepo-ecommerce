@@ -6,6 +6,7 @@ export interface StoreState {
   logout: () => void;
   cart: CartItem[];
   products: Product[];
+  categories: string[];
   addToCart: (product: Product) => void;
   removeFromCart: (id: number) => void;
   changeAmount: (id: number, amount: number) => void;
