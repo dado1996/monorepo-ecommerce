@@ -1,11 +1,6 @@
 // Jenkinsfile
 pipeline {
-    agent {
-        docker {
-            image 'node:18-alpine'
-            args '-v /var/jenkins_home/.aws:/root/.aws:ro'
-        }
-    }
+    agent any
     
     environment {
         AWS_REGION = 'us-east-1'
