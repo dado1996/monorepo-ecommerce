@@ -6,6 +6,7 @@ pipeline {
         AWS_REGION = 'us-east-1'
         S3_BUCKET = 'monorepo-ecommerce'
         CLOUDFRONT_ID = 'E8RDRUDHG6YXH'
+        VITE_COUNTRIES_API = 'https://restcountries.com/v3.1/'
     }
     
     stages {
@@ -17,12 +18,7 @@ pipeline {
         
         stage('Build') {
             steps {
-                sh '''
-                    set -a
-                    source .env
-                    set +a
-                    npm run build
-                '''
+                sh 'npm run build'
             }
         }
         
