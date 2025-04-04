@@ -9,12 +9,6 @@ pipeline {
     }
     
     stages {
-        stage('Load .env') {
-            steps {
-                dotenv '.env'
-            }
-        }
-
         stage('Install Dependencies') {
             steps {
                 sh 'npm install'
@@ -23,7 +17,12 @@ pipeline {
         
         stage('Build') {
             steps {
-                sh 'npm run build'
+                sh '''
+                    set -a
+                    source .env
+                    set +a
+                    npm run build
+                '''
             }
         }
         
