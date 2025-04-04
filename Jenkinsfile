@@ -5,7 +5,7 @@ pipeline {
     environment {
         AWS_REGION = 'us-east-1'
         S3_BUCKET = 'monorepo-ecommerce'
-        CLOUDFRONT_ID = 'E1SDMLKFSMKDMLK'
+        CLOUDFRONT_ID = 'E8RDRUDHG6YXH'
     }
     
     stages {
