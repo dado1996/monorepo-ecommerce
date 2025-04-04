@@ -25,7 +25,7 @@ pipeline {
         stage('Deploy to S3') {
             steps {
                 withAWS(region: "${AWS_REGION}", credentials: 'aws-credentials') {
-                    s3Upload(bucket: "${S3_BUCKET}", path: '/', workingDir: 'ecommerce-view/dist', includePathPattern: '**/*')
+                    s3Upload(bucket: "${S3_BUCKET}", path: '/', workingDir: 'packages/ecommerce-view/dist', includePathPattern: '**/*')
                     cfInvalidate(distribution: "${CLOUDFRONT_ID}", paths: ['/*'])
                 }
             }
