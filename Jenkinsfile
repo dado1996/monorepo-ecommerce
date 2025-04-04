@@ -4,8 +4,7 @@ pipeline {
     
     environment {
         AWS_REGION = 'us-east-1'
-        S3_BUCKET = 'monorepo-ecommerce--use1-az4--x-s3'
-        REACT_APP_VERSION = "1.0.${BUILD_NUMBER}"
+        S3_BUCKET = 'monorepo-ecommerce'
         CLOUDFRONT_ID = 'E1SDMLKFSMKDMLK'
     }
     
@@ -25,7 +24,7 @@ pipeline {
         stage('Deploy to S3') {
             steps {
                 withAWS(region: "${AWS_REGION}", credentials: 'aws-credentials') {
-                    s3Upload(bucket: "${S3_BUCKET}", path: '/', workingDir: 'packages/ecommerce-view/dist', includePathPattern: '**/*')
+                    s3Upload(bucket: "${S3_BUCKET}", path: '/monorepo', workingDir: 'packages/ecommerce-view/dist', includePathPattern: '**/*')
                     cfInvalidate(distribution: "${CLOUDFRONT_ID}", paths: ['/*'])
                 }
             }
