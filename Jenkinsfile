@@ -4,14 +4,15 @@ pipeline {
     
     environment {
         AWS_REGION = 'us-east-1'
-        S3_BUCKET = 'monorepo-ecommerce'
+        S3_BUCKET = 'monorepo-ecommerce--use1-az4--x-s3'
         REACT_APP_VERSION = "1.0.${BUILD_NUMBER}"
+        CLOUDFRONT_ID = 'E1SDMLKFSMKDMLK'
     }
     
     stages {
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
+                sh 'npm install'
             }
         }
         
@@ -23,12 +24,10 @@ pipeline {
         
         stage('Deploy to S3') {
             steps {
-                // Install AWS CLI
-                sh 'apk add --no-cache aws-cli'
-                
-                // Upload build directory to S3
-                sh 'aws s3 sync build/ s3://$S3_BUCKET/ --delete --region $AWS_REGION'
-                
+                withAWS(region: "${AWS_REGION}", credentials: 'aws-credentials') {
+                    s3Upload(bucket: "${S3_BUCKET}", path: '/', workingDir: 'build', includePathPattern: '**/*')
+                    cfInvalidate(distribution: "${CLOUDFRONT_ID}", paths: ['/*'])
+                }
             }
         }
     }
