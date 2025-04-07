@@ -23,10 +23,6 @@ This monorepo contains multiple TypeScript packages that work together to form a
   - [Testing](#testing)
   - [Building](#building)
   - [Linting and Formatting](#linting-and-formatting)
-- [Git Workflow](#git-workflow)
-  - [Branch Naming Convention](#branch-naming-convention)
-  - [Commit Guidelines](#commit-guidelines)
-  - [Pull Request Process](#pull-request-process)
 - [CI/CD](#cicd)
 - [Deployment](#deployment)
 - [Contributing](#contributing)
@@ -96,6 +92,14 @@ monorepo-ecommerce/
    npm run dev
    ```
 
+### Deployment Setup
+
+1. Make sure you have `aws cli` installed and configured in your local machine. You can learn how to do it [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+2. Also make sure you have Jenkins installed on your local machine or running in a server, and configure a pipeline with the project's repo
+
+3. Run the pipeline
+
 ## Package Documentation
 
 ### Common
@@ -129,6 +133,10 @@ The `ecommerce-view` package contains the client application that is seen
 - Styling and desing with React Bootstrap
 - Responsive data with cache'd information
 - Logging and monitoring
+
+## Product Mock
+
+The mock for the product used will be stored as a JSON file in the assets folder, and retrieved in the hook file used to store the state of the application, so it will be loaded at run time
 
 ## Development Workflow
 
@@ -176,47 +184,6 @@ Lint all files:
 npm run lint
 ```
 
-## Git Workflow
-
-### Branch Naming Convention
-
-- `feature/XXX-description` - For new features
-- `bugfix/XXX-description` - For bug fixes
-- `hotfix/XXX-description` - For urgent production fixes
-- `chore/XXX-description` - For maintenance tasks
-- `docs/XXX-description` - For documentation updates
-
-Where `XXX` is the issue/ticket number if applicable.
-
-### Commit Guidelines
-
-We follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
-
-```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer(s)]
-```
-
-Examples:
-
-- `feat(api): add user authentication endpoints`
-- `fix(web): resolve issue with form submission`
-- `docs(readme): update installation instructions`
-- `chore(deps): update dependency versions`
-
-### Pull Request Process
-
-1. Create a branch from `main` using the naming convention above
-2. Make your changes and commit using conventional commit format
-3. Push your branch and create a pull request
-4. Ensure the CI pipeline passes
-5. Request review from at least one team member
-6. Address any feedback or comments
-7. Once approved, the PR can be merged
-
 ## CI/CD
 
 This project uses Jenkins for continuous integration and deployment. The pipeline includes:
@@ -242,6 +209,8 @@ Interfaces to manage declarations of the different objects and functions
 Pages, where we save the main pages of the application.
 Services are where the fetching services are stored
 Templates is where we save the layout templates of the web application
+
+The jenkins pipeline will deploy to a bucket in a AWS S3 service according to the configuration established due to easier to manage a single application and cheaper in cost. The application will also be linked to a host defined in Cloudfront to handle routing properly and 400 and 500 errors as clean as possible
 
 ## License
 

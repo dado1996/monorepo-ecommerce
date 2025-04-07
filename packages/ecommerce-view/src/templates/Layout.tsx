@@ -12,14 +12,14 @@ export function Layout() {
     <div>
       <nav className="bg-info">
         <Stack direction="horizontal" gap={3}>
-          <Link to="/" className="p-2">
+          <Link hidden={user === "admin"} to="/" className="p-2">
             My Shop
           </Link>
-          <Link to="/cart" className="p-2 ms-auto">
+          <Link hidden={user === "admin"} to="/cart" className="p-2 ms-auto">
             Cart
             <Badge pill>{totalItems}</Badge>
           </Link>
-          <Dropdown>
+          <Dropdown className="">
             <Dropdown.Toggle variant="secondary">{user}</Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item>My purchases</Dropdown.Item>
