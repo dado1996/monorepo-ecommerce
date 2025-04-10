@@ -22,7 +22,7 @@ export function Layout() {
           <Dropdown className="">
             <Dropdown.Toggle variant="secondary">{user}</Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item>My purchases</Dropdown.Item>
+              <Dropdown.Item hidden={user === "admin"}>My purchases</Dropdown.Item>
               <Dropdown.Item href="#" onClick={logout}>
                 Logout
               </Dropdown.Item>

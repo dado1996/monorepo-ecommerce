@@ -4,6 +4,17 @@
 
 This monorepo contains multiple TypeScript packages that work together to form a complete application. By organizing our codebase in a monorepo structure, we achieve better code sharing, simplified dependency management, and coordinated versioning across all packages.
 
+To access the application:
+Client:
+
+- Username: client
+- Password: 1234
+
+Admin:
+
+- Username: admin
+- Password: 1234
+
 ## Table of Contents
 
 - [Project Structure](#project-structure)
